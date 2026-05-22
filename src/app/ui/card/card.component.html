@@ -1,1 +1,11 @@
-<p>card works!</p>
+<div class="ui-card">
+
+    <div class="ui-card-header" *ngIf="title">
+        <h5>{{ title }}</h5>
+    </div>
+
+    <div class="ui-card-body">
+        <ng-content />
+    </div>
+
+</div>
