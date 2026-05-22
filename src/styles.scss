@@ -1,1 +1,17 @@
-/* You can add global styles to this file, and also import other style files */
+@use './app/theme/scss/reset';
+@use './app/theme/scss/variables';
+@use './app/theme/scss/typography';
+@use './app/theme/scss/theme';
+@use './app/theme/scss/utilities';
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Inter, sans-serif;
+    background: var(--background);
+    color: var(--text);
+}
