@@ -1,1 +1,19 @@
-<p>input works!</p>
+<div class="ui-input-container">
+
+    @if (label) {
+
+    <label class="ui-label" [for]="id">
+
+      @if (required) {
+
+        <span class="required">*</span>
+
+      }
+
+      {{ label }}
+
+    </label> }
+
+    <input class="ui-input" [id]="id" [value]="value" [placeholder]="placeholder" [maxLength]="maxLength" [disabled]="disabled" (input)="onInput($event)" (blur)="onBlur()" (keydown)="onEnter($event)" />
+
+</div>
