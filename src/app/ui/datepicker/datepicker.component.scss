@@ -1,0 +1,91 @@
+.ui-datepicker {
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+    width: 100%;
+    &.disabled {
+        opacity: .7;
+        pointer-events: none;
+    }
+    &.readonly {
+        .ui-datepicker-wrapper {
+            background: var(--surface-2);
+        }
+    }
+    &-label {
+        font-size: .9rem;
+        font-weight: 600;
+        color: var(--text);
+        span {
+            color: #ef4444;
+        }
+    }
+    &-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        background: var(--surface);
+        transition: .2s ease;
+        overflow: hidden;
+        min-height: 48px;
+        &:focus-within {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, .15);
+        }
+        &.error {
+            border-color: #ef4444;
+        }
+        i {
+            padding-left: 1rem;
+            color: var(--text);
+            cursor: pointer;
+        }
+        input {
+            width: 100%;
+            border: none;
+            outline: none;
+            background: transparent;
+            color: var(--text);
+            font-size: .95rem;
+            font-family: inherit;
+            cursor: pointer;
+        }
+        input::-webkit-calendar-picker-indicator {
+            opacity: 0;
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            cursor: pointer;
+        }
+        &.sm {
+            input {
+                padding: .55rem .8rem;
+                font-size: .8rem;
+            }
+        }
+        &.md {
+            input {
+                padding: .8rem 1rem;
+                font-size: .95rem;
+            }
+        }
+        &.lg {
+            input {
+                padding: 1rem 1.2rem;
+                font-size: 1rem;
+            }
+        }
+    }
+}
+
+.helper-text {
+    font-size: .8rem;
+    color: var(--text-muted);
+}
+
+.error-text {
+    font-size: .8rem;
+    color: #ef4444;
+}

@@ -1,0 +1,39 @@
+<div class="ui-datepicker" [class.disabled]="disabled" [class.readonly]="readonly">
+
+    @if(label){
+
+    <label class="ui-datepicker-label">
+
+      {{ label }}
+
+      @if(required){
+
+        <span>*</span>
+
+      }
+
+    </label> }
+
+    <div class="ui-datepicker-wrapper" [class.error]="error" [class.sm]="size === 'sm'" [class.md]="size === 'md'" [class.lg]="size === 'lg'">
+
+        <i class="fa-solid fa-calendar" (click)="openCalendar(dateInput)"></i>
+
+        <input #dateInput type="date" [value]="value" [disabled]="disabled" [readonly]="readonly" [min]="minDate" [max]="maxDate" (input)="handleInput($event)">
+
+    </div>
+
+    @if(helper && !error){
+
+    <small class="helper-text">
+
+      {{ helper }}
+
+    </small> } @if(error){
+
+    <small class="error-text">
+
+      {{ error }}
+
+    </small> }
+
+</div>
