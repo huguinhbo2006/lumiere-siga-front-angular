@@ -1,11 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+import { MenuService } from '../../core/services/menu.service';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './sidebar.component.html',
-  styleUrl: './sidebar.component.scss',
+  styleUrl: './sidebar.component.scss'
 })
 export class SidebarComponent {
+  openModule = '';
+  menuService = inject(MenuService);
 
+  toggleModule(module: string) {
+
+    if (this.openModule === module) {
+      this.openModule = '';
+      return;
+    }
+  
+    this.openModule = module;
+  
+  }
 }
