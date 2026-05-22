@@ -1,1 +1,21 @@
-<p>button works!</p>
+<button class="ui-button" [class]="'ui-button ' + variant + ' ' + size" [disabled]="disabled || loading">
+
+  @if (loading) {
+
+    <span class="spinner-border spinner-border-sm"></span>
+
+  } @else {
+
+    @if (icon) {
+
+      <i [class]="icon"></i>
+
+    }
+
+  }
+
+  <span>
+    <ng-content />
+  </span>
+
+</button>

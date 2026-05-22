@@ -1,11 +1,34 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-button',
-  imports: [],
+  selector: 'ui-button',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './button.component.html',
-  styleUrl: './button.component.scss',
+  styleUrl: './button.component.scss'
 })
 export class ButtonComponent {
+
+  @Input() variant:
+    | 'primary'
+    | 'success'
+    | 'danger'
+    | 'warning'
+    | 'secondary'
+    | 'outline'
+    = 'primary';
+
+  @Input() size:
+    | 'sm'
+    | 'md'
+    | 'lg'
+    = 'md';
+
+  @Input() disabled = false;
+
+  @Input() loading = false;
+
+  @Input() icon = '';
 
 }

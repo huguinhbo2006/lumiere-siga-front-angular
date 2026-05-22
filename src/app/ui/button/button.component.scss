@@ -1,0 +1,79 @@
+.ui-button {
+    border: none;
+    border-radius: var(--radius-md);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-weight: 600;
+    transition: .2s ease;
+    cursor: pointer;
+    padding: 0 18px;
+    &:disabled {
+        opacity: .6;
+        cursor: not-allowed;
+    }
+}
+
+
+/* Sizes */
+
+.sm {
+    height: 36px;
+    font-size: 13px;
+}
+
+.md {
+    height: 44px;
+    font-size: 14px;
+}
+
+.lg {
+    height: 52px;
+    font-size: 15px;
+}
+
+
+/* Variants */
+
+.primary {
+    background: var(--primary);
+    color: white;
+    &:hover:not(:disabled) {
+        background: var(--primary-hover);
+    }
+}
+
+.success {
+    background: var(--success);
+    color: white;
+}
+
+.danger {
+    background: var(--danger);
+    color: white;
+}
+
+.warning {
+    background: var(--warning);
+    color: white;
+}
+
+.secondary {
+    background: #8392ab;
+    color: white;
+}
+
+.outline {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text);
+    &:hover:not(:disabled) {
+        background: rgba(94, 114, 228, .05);
+    }
+}
+
+.spinner-border {
+    width: 16px;
+    height: 16px;
+}
