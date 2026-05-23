@@ -1,0 +1,33 @@
+@if(open){
+
+<div class="ui-modal" (click)="backdropClick($event)">
+
+    <div class="ui-modal-container" [class.sm]="size === 'sm'" [class.md]="size === 'md'" [class.lg]="size === 'lg'" [class.xl]="size === 'xl'">
+
+        <div class="ui-modal-header">
+
+            <h3>
+
+                {{ title }}
+
+            </h3>
+
+            <button type="button" class="close-button" (click)="close()">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+        <div class="ui-modal-body">
+
+            <ng-content></ng-content>
+
+        </div>
+
+    </div>
+
+</div>
+
+}

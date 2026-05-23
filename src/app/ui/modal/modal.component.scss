@@ -1,0 +1,81 @@
+.ui-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(15, 23, 42, .6);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    animation: fadeIn .2s ease;
+    &-container {
+        width: 100%;
+        background: var(--surface);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-lg);
+        overflow: hidden;
+        animation: scaleIn .2s ease;
+        &.sm {
+            max-width: 400px;
+        }
+        &.md {
+            max-width: 600px;
+        }
+        &.lg {
+            max-width: 900px;
+        }
+        &.xl {
+            max-width: 1200px;
+        }
+    }
+    &-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 1.25rem;
+        border-bottom: 1px solid var(--border);
+        h3 {
+            margin: 0;
+            font-size: 1.1rem;
+            color: var(--text);
+        }
+    }
+    &-body {
+        padding: 1.25rem;
+    }
+}
+
+.close-button {
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--text);
+    cursor: pointer;
+    transition: .2s ease;
+    &:hover {
+        background: rgba(148, 163, 184, .15);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
