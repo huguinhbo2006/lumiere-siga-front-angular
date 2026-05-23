@@ -1,0 +1,183 @@
+<div class="ui-table-wrapper">
+
+    <div class="ui-table-toolbar">
+
+        @if (searchable) {
+
+        <div class="ui-table-search">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input type="text" placeholder="Buscar..." [(ngModel)]="search" />
+
+        </div>
+
+        }
+
+        <div class="ui-table-toolbar-right">
+
+            <div class="ui-table-total">
+
+                {{ filteredData.length }} registros
+
+            </div>
+
+            <div class="ui-table-page-size">
+
+                <span>
+          Mostrar
+        </span>
+
+                <select [ngModel]="pageSize === -1 ? 'Todos' : pageSize" (ngModelChange)="onPageSizeChange($event)">
+
+          @for (option of finalPageOptions; track option) {
+
+            <option [ngValue]="option">
+
+              {{ option }}
+
+            </option>
+
+          }
+
+        </select>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="ui-table-container">
+
+        <table class="ui-table" [class.striped]="striped" [class.hover]="hover" [class.clickable]="clickable">
+
+            <thead>
+
+                <tr>
+
+                    @if (selectable) {
+
+                    <th class="ui-table-checkbox">
+
+                        <input type="checkbox" (change)="toggleAll()" [checked]="selectedRows.length === paginatedData.length && paginatedData.length > 0" />
+
+                    </th>
+
+                    } @for (column of columns; track column.key) {
+
+                    <th [style.width]="column.width" [style.text-align]="column.align || 'left'" [class.sortable]="column.sortable" (click)="onSort(column)">
+
+                        <div class="ui-table-header">
+
+                            <span>
+                  {{ column.label }}
+                </span> @if (column.sortable) {
+
+                            <i class="fa-solid" [class.fa-sort]="sortColumn !== column.key" [class.fa-sort-up]="sortColumn === column.key && sortDirection === 'asc'" [class.fa-sort-down]="sortColumn === column.key && sortDirection === 'desc'"></i> }
+
+                        </div>
+
+                    </th>
+
+                    }
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                @if (loading) {
+
+                <tr>
+
+                    <td class="ui-table-loading" [attr.colspan]="columns.length + (selectable ? 1 : 0)">
+
+                        <div class="ui-table-state">
+
+                            <i class="fa-solid fa-spinner fa-spin"></i>
+
+                            <span>
+                  Cargando información...
+                </span>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+                } @else if (!paginatedData.length) {
+
+                <tr>
+
+                    <td class="ui-table-empty" [attr.colspan]="columns.length + (selectable ? 1 : 0)">
+
+                        <div class="ui-table-state">
+
+                            <i class="fa-solid fa-database"></i>
+
+                            <span>
+                  Sin registros disponibles
+                </span>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+                } @else { @for (item of paginatedData; track $index) {
+
+                <tr (click)="onRowClick(item)">
+
+                    @if (selectable) {
+
+                    <td class="ui-table-checkbox">
+
+                        <input type="checkbox" (click)="$event.stopPropagation()" (change)="toggleRow(item)" [checked]="isSelected(item)" />
+
+                    </td>
+
+                    } @for (column of columns; track column.key) {
+
+                    <td [style.text-align]="column.align || 'left'">
+
+                        @switch (column.type) { @case ('badge') {
+
+                        <span class="ui-table-badge" [ngClass]="column.badgeVariant || 'primary'">
+                        {{ getCellValue(item, column.key) }}
+                      </span> } @case ('actions') {
+
+                        <div class="ui-table-actions">
+
+                            @for (action of column.actions || []; track action.action) {
+
+                            <button class="ui-table-action-button" [class]="action.variant || 'primary'" (click)="$event.stopPropagation(); onAction(action.action, item)">
+
+                            <i [class]="action.icon"></i>
+
+                          </button> }
+
+                        </div>
+
+                        } @default { {{ getCellValue(item, column.key) }} } }
+
+                    </td>
+
+                    }
+
+                </tr>
+
+                } }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <ui-pagination [page]="page" [totalPages]="totalPages" (pageChange)="page = $event" />
+
+</div>
