@@ -24,4 +24,10 @@ export interface TableColumnModel {
     | 'primary'
     | 'secondary';
 
+  actions?: {
+    icon: string;
+    action: string;
+    variant?: 'primary' | 'danger' | 'warning';
+  }[];
+
 }
