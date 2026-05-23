@@ -1,0 +1,29 @@
+<div class="ui-toast-container">
+
+    @for(item of toast.toasts(); track item.id){
+
+    <div class="ui-toast" [class.success]="item.type === 'success'" [class.error]="item.type === 'error'" [class.warning]="item.type === 'warning'" [class.info]="item.type === 'info'">
+
+        <div class="ui-toast-content">
+
+            <i class="fa-solid" [class.fa-circle-check]="item.type === 'success'" [class.fa-circle-xmark]="item.type === 'error'" [class.fa-triangle-exclamation]="item.type === 'warning'" [class.fa-circle-info]="item.type === 'info'"></i>
+
+            <span>
+
+                {{ item.message }}
+
+            </span>
+
+        </div>
+
+        <button type="button" (click)="toast.remove(item.id)">
+
+            <i class="fa-solid fa-xmark"></i>
+
+        </button>
+
+    </div>
+
+    }
+
+</div>

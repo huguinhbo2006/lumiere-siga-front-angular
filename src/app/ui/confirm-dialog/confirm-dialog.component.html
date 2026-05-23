@@ -1,0 +1,40 @@
+@if (visible()) {
+
+<div class="ui-confirm-dialog-overlay" (click)="onBackdrop($event)">
+
+    <div class="ui-confirm-dialog">
+
+        <div class="ui-confirm-dialog-icon">
+
+            @switch (type()) { @case ('danger') {
+            <i class="fa-solid fa-triangle-exclamation"></i> } @case ('warning') {
+            <i class="fa-solid fa-circle-exclamation"></i> } @default {
+            <i class="fa-solid fa-circle-question"></i> } }
+
+        </div>
+
+        <div class="ui-confirm-dialog-header">
+            {{ title() }}
+        </div>
+
+        <div class="ui-confirm-dialog-body">
+            {{ message() }}
+        </div>
+
+        <div class="ui-confirm-dialog-footer">
+
+            <ui-button variant="secondary" [disabled]="loading()" (clicked)="onCancel()">
+                {{ cancelText() }}
+            </ui-button>
+
+            <ui-button [variant]="type()" [loading]="loading()" (clicked)="onConfirm()">
+                {{ confirmText() }}
+            </ui-button>
+
+        </div>
+
+    </div>
+
+</div>
+
+}

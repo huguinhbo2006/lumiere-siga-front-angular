@@ -1,79 +1,75 @@
 .ui-button {
-    border: none;
-    border-radius: var(--radius-md);
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: .6rem;
+    border: none;
+    border-radius: var(--radius-md);
     font-weight: 600;
-    transition: .2s ease;
     cursor: pointer;
-    padding: 0 18px;
+    transition: .2s ease;
+    font-family: inherit;
+    text-decoration: none;
     &:disabled {
-        opacity: .6;
+        opacity: .7;
         cursor: not-allowed;
     }
-}
-
-
-/* Sizes */
-
-.sm {
-    height: 36px;
-    font-size: 13px;
-}
-
-.md {
-    height: 44px;
-    font-size: 14px;
-}
-
-.lg {
-    height: 52px;
-    font-size: 15px;
-}
-
-
-/* Variants */
-
-.primary {
-    background: var(--primary);
-    color: white;
-    &:hover:not(:disabled) {
-        background: var(--primary-hover);
+    i {
+        font-size: .9rem;
     }
-}
-
-.success {
-    background: var(--success);
-    color: white;
-}
-
-.danger {
-    background: var(--danger);
-    color: white;
-}
-
-.warning {
-    background: var(--warning);
-    color: white;
-}
-
-.secondary {
-    background: #8392ab;
-    color: white;
-}
-
-.outline {
-    background: transparent;
-    border: 1px solid var(--border);
-    color: var(--text);
-    &:hover:not(:disabled) {
-        background: rgba(94, 114, 228, .05);
+    &.sm {
+        padding: .45rem .8rem;
+        font-size: .8rem;
     }
-}
-
-.spinner-border {
-    width: 16px;
-    height: 16px;
+    &.md {
+        padding: .7rem 1rem;
+        font-size: .9rem;
+    }
+    &.lg {
+        padding: .95rem 1.3rem;
+        font-size: 1rem;
+    }
+    &.primary {
+        background: var(--primary);
+        color: white;
+        &:hover {
+            opacity: .9;
+        }
+    }
+    &.success {
+        background: #22c55e;
+        color: white;
+        &:hover {
+            opacity: .9;
+        }
+    }
+    &.danger {
+        background: #ef4444;
+        color: white;
+        &:hover {
+            opacity: .9;
+        }
+    }
+    &.warning {
+        background: #f59e0b;
+        color: white;
+        &:hover {
+            opacity: .9;
+        }
+    }
+    &.secondary {
+        background: #64748b;
+        color: white;
+        &:hover {
+            opacity: .9;
+        }
+    }
+    &.outline {
+        background: transparent;
+        border: 1px solid var(--border);
+        color: var(--text);
+        &:hover {
+            background: rgba(148, 163, 184, .08);
+        }
+    }
 }

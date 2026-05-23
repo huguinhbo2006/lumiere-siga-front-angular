@@ -1,4 +1,4 @@
-<button class="ui-button" [class]="'ui-button ' + variant + ' ' + size" [disabled]="disabled || loading">
+<button class="ui-button" [class]="'ui-button ' + variant + ' ' + size" [disabled]="disabled || loading" (click)="onClick()">
 
   @if (loading) {
 
@@ -15,7 +15,9 @@
   }
 
   <span>
-    <ng-content />
+
+    <ng-content></ng-content>
+
   </span>
 
 </button>
