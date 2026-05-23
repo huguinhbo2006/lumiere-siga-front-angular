@@ -1,0 +1,43 @@
+<div class="ui-textarea" [class.disabled]="disabled" [class.readonly]="readonly">
+
+    @if(label){
+
+    <label class="ui-textarea-label">
+
+      {{ label }}
+
+      @if(required){
+
+        <span>*</span>
+
+      }
+
+    </label> }
+
+    <div class="ui-textarea-wrapper" [class.error]="error" [class.sm]="size === 'sm'" [class.md]="size === 'md'" [class.lg]="size === 'lg'">
+
+        <textarea [rows]="rows" [placeholder]="placeholder" [disabled]="disabled" [readonly]="readonly" [maxLength]="maxlength" [style.resize]="resize" (input)="handleInput($event)">{{ value }}</textarea>
+
+    </div>
+
+    @if(maxlength){
+
+    <small class="counter-text">
+
+      {{ value.length }}/{{ maxlength }}
+
+    </small> } @if(helper && !error){
+
+    <small class="helper-text">
+
+      {{ helper }}
+
+    </small> } @if(error){
+
+    <small class="error-text">
+
+      {{ error }}
+
+    </small> }
+
+</div>

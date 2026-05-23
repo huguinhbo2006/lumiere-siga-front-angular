@@ -1,0 +1,60 @@
+<div class="ui-select" [class.disabled]="disabled" [class.readonly]="readonly">
+
+    @if(label){
+
+    <label class="ui-select-label">
+
+      {{ label }}
+
+      @if(required){
+
+        <span>*</span>
+
+      }
+
+    </label> }
+
+    <div class="ui-select-wrapper" [class.error]="error" [class.sm]="size === 'sm'" [class.md]="size === 'md'" [class.lg]="size === 'lg'">
+
+        <select [disabled]="disabled" [value]="value" (change)="handleChange($event)">
+
+      <option value="" disabled selected>
+
+        {{ placeholder }}
+
+      </option>
+
+      @for(option of options; track option.value){
+
+        <option
+          [value]="option.value"
+          [disabled]="option.disabled"
+        >
+
+          {{ option.label }}
+
+        </option>
+
+      }
+
+    </select>
+
+        <i class="fa-solid fa-chevron-down"></i>
+
+    </div>
+
+    @if(helper && !error){
+
+    <small class="helper-text">
+
+      {{ helper }}
+
+    </small> } @if(error){
+
+    <small class="error-text">
+
+      {{ error }}
+
+    </small> }
+
+</div>
