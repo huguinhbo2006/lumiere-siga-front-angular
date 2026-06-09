@@ -1,31 +1,33 @@
-<div class="container-fluid">
+<ui-card title="Enterprise Table">
 
-    <ui-card title="Dashboard">
+    <ui-table [columns]="columns" [data]="data" [config]="config" (rowClicked)="onRowClick($event)" (actionClicked)="onAction($event)">
 
-        Bienvenido a Nova UI 🚀
+        <ng-template tableColumn="usuario" let-row>
 
-        <div class="d-flex gap-3 mt-4">
+            <div class="employee-cell">
 
-            <ui-button icon="fa-solid fa-plus">
-                Nuevo
-            </ui-button>
+                <div class="employee-avatar">
 
-            <ui-button variant="success" icon="fa-solid fa-check">
-                Guardar
-            </ui-button>
+                    {{ row.avatar }}
 
-            <ui-button variant="danger" icon="fa-solid fa-trash">
-                Eliminar
-            </ui-button>
+                </div>
 
-            <ui-button variant="outline">
-                Cancelar
-            </ui-button>
+                <div class="employee-info">
 
-        </div>
-        <ui-input label="Edad" validation="number" [maxLength]="3"></ui-input>
+                    <strong>
+            {{ row.nombre }}
+          </strong>
 
+                    <small>
+            {{ row.correo }}
+          </small>
 
-    </ui-card>
+                </div>
 
-</div>
+            </div>
+
+        </ng-template>
+
+    </ui-table>
+
+</ui-card>

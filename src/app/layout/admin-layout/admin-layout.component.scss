@@ -1,15 +1,24 @@
-.admin-layout {
-    display: flex;
-    min-height: 100vh;
-    background: var(--background);
+:host {
+    display: block;
+    height: 100vh;
 }
 
-.admin-content {
+.admin-layout {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.admin-wrapper {
     flex: 1;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
 
 .page-content {
-    padding: 24px;
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.5rem;
+    background: #f8fafc;
 }

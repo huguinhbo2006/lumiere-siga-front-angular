@@ -1,16 +1,21 @@
 import {
   Component,
+  ContentChildren,
   EventEmitter,
   Input,
-  Output
+  Output,
+  QueryList
 } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { TableColumnModel } from '../../models/table-column.model';
+import { TableConfigModel } from '../../models/table-config.model';
 
 import { PaginationComponent } from '../pagination/pagination.component';
+
+import { TableColumnDirective } from './directives/table-column.directive';
 
 @Component({
   selector: 'ui-table',
@@ -31,32 +36,30 @@ export class TableComponent {
 
   @Input() loading = false;
 
-  @Input() striped = false;
-
-  @Input() hover = true;
-
-  @Input() clickable = false;
-
-  @Input() searchable = true;
-
-  @Input() selectable = false;
-
-  @Input() pageSize = 10;
-
-  @Input() pageSizeOptions: (number | string)[] = [
-    5,
-    10,
-    20,
-    50
-  ];
-
-  @Input() allowAll = true;
+  @Input() config: TableConfigModel = {
+    hover: true,
+    striped: false,
+    searchable: true,
+    selectable: false,
+    stickyHeader: false,
+    clickable: false,
+    pageSize: 10,
+    pageSizeOptions: [5, 10, 20, 50],
+    allowAll: true
+  };
 
   @Output() rowClicked = new EventEmitter<any>();
 
   @Output() actionClicked = new EventEmitter<{
     action: string;
     row: any;
+  }>();
+
+  @Output() searchChanged = new EventEmitter<string>();
+
+  @Output() sortChanged = new EventEmitter<{
+    column: string;
+    direction: string;
   }>();
 
   search = '';
@@ -69,11 +72,16 @@ export class TableComponent {
 
   selectedRows: any[] = [];
 
+  @ContentChildren(TableColumnDirective)
+  customTemplates!: QueryList<TableColumnDirective>;
+
   get finalPageOptions(): (number | string)[] {
 
-    const options = [...this.pageSizeOptions];
+    const options = [
+      ...(this.config.pageSizeOptions || [])
+    ];
 
-    if (this.allowAll) {
+    if (this.config.allowAll) {
       options.push('Todos');
     }
 
@@ -91,7 +99,9 @@ export class TableComponent {
 
       result = result.filter(row =>
         Object.values(row).some(value =>
-          String(value).toLowerCase().includes(term)
+          String(value)
+            .toLowerCase()
+            .includes(term)
         )
       );
 
@@ -105,11 +115,15 @@ export class TableComponent {
         const valueB = b[this.sortColumn];
 
         if (valueA < valueB) {
-          return this.sortDirection === 'asc' ? -1 : 1;
+          return this.sortDirection === 'asc'
+            ? -1
+            : 1;
         }
 
         if (valueA > valueB) {
-          return this.sortDirection === 'asc' ? 1 : -1;
+          return this.sortDirection === 'asc'
+            ? 1
+            : -1;
         }
 
         return 0;
@@ -124,28 +138,39 @@ export class TableComponent {
 
   get paginatedData(): any[] {
 
-    if (this.pageSize === -1) {
+    if (this.config.pageSize === -1) {
       return this.filteredData;
     }
 
-    const start = (this.page - 1) * this.pageSize;
+    const start =
+      (this.page - 1) *
+      this.config.pageSize!;
 
     return this.filteredData.slice(
       start,
-      start + this.pageSize
+      start + this.config.pageSize!
     );
 
   }
 
   get totalPages(): number {
 
-    if (this.pageSize === -1) {
+    if (this.config.pageSize === -1) {
       return 1;
     }
 
     return Math.ceil(
-      this.filteredData.length / this.pageSize
+      this.filteredData.length /
+      this.config.pageSize!
     );
+
+  }
+
+  onSearch(): void {
+
+    this.page = 1;
+
+    this.searchChanged.emit(this.search);
 
   }
 
@@ -153,11 +178,11 @@ export class TableComponent {
 
     if (value === 'Todos') {
 
-      this.pageSize = -1;
+      this.config.pageSize = -1;
 
     } else {
 
-      this.pageSize = Number(value);
+      this.config.pageSize = Number(value);
 
     }
 
@@ -186,11 +211,16 @@ export class TableComponent {
 
     }
 
+    this.sortChanged.emit({
+      column: this.sortColumn,
+      direction: this.sortDirection
+    });
+
   }
 
   onRowClick(row: any): void {
 
-    if (!this.clickable) {
+    if (!this.config.clickable) {
       return;
     }
 
@@ -209,12 +239,15 @@ export class TableComponent {
 
   toggleRow(row: any): void {
 
-    const exists = this.selectedRows.includes(row);
+    const exists =
+      this.selectedRows.includes(row);
 
     if (exists) {
 
       this.selectedRows =
-        this.selectedRows.filter(r => r !== row);
+        this.selectedRows.filter(
+          r => r !== row
+        );
 
       return;
 
@@ -226,7 +259,10 @@ export class TableComponent {
 
   toggleAll(): void {
 
-    if (this.selectedRows.length === this.paginatedData.length) {
+    if (
+      this.selectedRows.length ===
+      this.paginatedData.length
+    ) {
 
       this.selectedRows = [];
 
@@ -234,7 +270,9 @@ export class TableComponent {
 
     }
 
-    this.selectedRows = [...this.paginatedData];
+    this.selectedRows = [
+      ...this.paginatedData
+    ];
 
   }
 
@@ -244,6 +282,16 @@ export class TableComponent {
 
   getCellValue(item: any, key: string): any {
     return item[key];
+  }
+
+  getCustomTemplate(
+    key: string
+  ): TableColumnDirective | undefined {
+
+    return this.customTemplates.find(
+      template => template.key === key
+    );
+
   }
 
 }

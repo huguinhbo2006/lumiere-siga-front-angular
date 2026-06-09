@@ -2,13 +2,13 @@
 
     <div class="ui-table-toolbar">
 
-        @if (searchable) {
+        @if (config.searchable) {
 
         <div class="ui-table-search">
 
             <i class="fa-solid fa-magnifying-glass"></i>
 
-            <input type="text" placeholder="Buscar..." [(ngModel)]="search" />
+            <input type="text" placeholder="Buscar..." [(ngModel)]="search" (ngModelChange)="onSearch()" />
 
         </div>
 
@@ -28,7 +28,7 @@
           Mostrar
         </span>
 
-                <select [ngModel]="pageSize === -1 ? 'Todos' : pageSize" (ngModelChange)="onPageSizeChange($event)">
+                <select [ngModel]="config.pageSize === -1 ? 'Todos' : config.pageSize" (ngModelChange)="onPageSizeChange($event)">
 
           @for (option of finalPageOptions; track option) {
 
@@ -44,19 +44,35 @@
 
             </div>
 
+            <div class="ui-table-toolbar-actions">
+
+                <button class="ui-table-toolbar-button">
+
+          <i class="fa-solid fa-file-excel"></i>
+
+        </button>
+
+                <button class="ui-table-toolbar-button">
+
+          <i class="fa-solid fa-file-pdf"></i>
+
+        </button>
+
+            </div>
+
         </div>
 
     </div>
 
-    <div class="ui-table-container">
+    <div class="ui-table-container" [class.sticky-header]="config.stickyHeader">
 
-        <table class="ui-table" [class.striped]="striped" [class.hover]="hover" [class.clickable]="clickable">
+        <table class="ui-table" [class.striped]="config.striped" [class.hover]="config.hover" [class.clickable]="config.clickable">
 
             <thead>
 
                 <tr>
 
-                    @if (selectable) {
+                    @if (config.selectable) {
 
                     <th class="ui-table-checkbox">
 
@@ -88,39 +104,35 @@
 
             <tbody>
 
-                @if (loading) {
+                @if (loading) { @for (item of [1,2,3,4,5]; track $index) {
 
                 <tr>
 
-                    <td class="ui-table-loading" [attr.colspan]="columns.length + (selectable ? 1 : 0)">
+                    <td class="ui-table-skeleton-cell" [attr.colspan]="columns.length + (config.selectable ? 1 : 0)">
 
-                        <div class="ui-table-state">
-
-                            <i class="fa-solid fa-spinner fa-spin"></i>
-
-                            <span>
-                  Cargando información...
-                </span>
-
-                        </div>
+                        <div class="ui-table-skeleton"></div>
 
                     </td>
 
                 </tr>
 
-                } @else if (!paginatedData.length) {
+                } } @else if (!paginatedData.length) {
 
                 <tr>
 
-                    <td class="ui-table-empty" [attr.colspan]="columns.length + (selectable ? 1 : 0)">
+                    <td class="ui-table-empty" [attr.colspan]="columns.length + (config.selectable ? 1 : 0)">
 
-                        <div class="ui-table-state">
+                        <div class="ui-table-empty-state">
 
                             <i class="fa-solid fa-database"></i>
 
-                            <span>
-                  Sin registros disponibles
-                </span>
+                            <h3>
+                                Sin registros
+                            </h3>
+
+                            <p>
+                                No hay información disponible actualmente.
+                            </p>
 
                         </div>
 
@@ -132,9 +144,9 @@
 
                 <tr (click)="onRowClick(item)">
 
-                    @if (selectable) {
+                    @if (config.selectable) {
 
-                    <td class="ui-table-checkbox">
+                    <td class="ui-table-checkbox" data-label="Seleccionar">
 
                         <input type="checkbox" (click)="$event.stopPropagation()" (change)="toggleRow(item)" [checked]="isSelected(item)" />
 
@@ -142,13 +154,21 @@
 
                     } @for (column of columns; track column.key) {
 
-                    <td [style.text-align]="column.align || 'left'">
+                    <td [style.text-align]="column.align || 'left'" [attr.data-label]="column.label">
 
-                        @switch (column.type) { @case ('badge') {
+                        @if (getCustomTemplate(column.key); as customTemplate) {
+
+                        <ng-container *ngTemplateOutlet="
+                        customTemplate.template;
+                        context: {
+                          $implicit: item,
+                          row: item
+                        }
+                      " /> } @else { @switch (column.type) { @case ('badge') {
 
                         <span class="ui-table-badge" [ngClass]="column.badgeVariant || 'primary'">
-                        {{ getCellValue(item, column.key) }}
-                      </span> } @case ('actions') {
+                          {{ getCellValue(item, column.key) }}
+                        </span> } @case ('actions') {
 
                         <div class="ui-table-actions">
 
@@ -156,13 +176,13 @@
 
                             <button class="ui-table-action-button" [class]="action.variant || 'primary'" (click)="$event.stopPropagation(); onAction(action.action, item)">
 
-                            <i [class]="action.icon"></i>
+                              <i [class]="action.icon"></i>
 
-                          </button> }
+                            </button> }
 
                         </div>
 
-                        } @default { {{ getCellValue(item, column.key) }} } }
+                        } @default { {{ getCellValue(item, column.key) }} } } }
 
                     </td>
 

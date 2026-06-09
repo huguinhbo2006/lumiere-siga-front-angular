@@ -1,16 +1,38 @@
 .sidebar {
-    width: 240px;
-    min-height: 100vh;
+    width: 260px;
+    min-width: 260px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
     background: var(--surface);
     border-right: 1px solid var(--border);
     padding: 20px;
+    overflow-y: auto;
 }
 
 .logo {
-    font-size: 22px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 32px;
+}
+
+.logo-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-weight: 700;
-    color: var(--primary);
-    margin-bottom: 28px;
+    background: var(--primary);
+    color: white;
+}
+
+.logo-text {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
 }
 
 .menu {
@@ -66,9 +88,9 @@
     border-radius: var(--radius-md);
     color: var(--text);
     font-size: 14px;
-    transition: .2s ease;
-    cursor: pointer;
     text-decoration: none;
+    cursor: pointer;
+    transition: .2s ease;
     &:hover {
         background: rgba(94, 114, 228, .08);
         color: var(--primary);

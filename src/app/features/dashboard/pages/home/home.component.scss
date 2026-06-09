@@ -1,0 +1,30 @@
+.employee-cell {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.employee-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+
+.employee-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.employee-info strong {
+    color: var(--text);
+}
+
+.employee-info small {
+    color: var(--text-muted);
+}
