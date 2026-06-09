@@ -1,4 +1,7 @@
-<aside class="sidebar">
+<aside
+    class="sidebar"
+    [class.sidebar--classic]="layoutService.mode() === 'classic'"
+    [class.sidebar--collapsed]="layoutService.collapsed()">
 
     <div class="logo">
 
@@ -6,9 +9,13 @@
             N
         </div>
 
-        <div class="logo-text">
-            Nova UI
-        </div>
+        @if (!layoutService.collapsed()) {
+
+            <div class="logo-text">
+                Nova UI
+            </div>
+
+        }
 
     </div>
 
@@ -24,11 +31,19 @@
 
                     <i [class]="module.icono + ' ' + module.color"></i>
 
-                    <span>{{ module.nombre }}</span>
+                    @if (!layoutService.collapsed()) {
+
+                        <span>{{ module.nombre }}</span>
+
+                    }
 
                 </div>
 
-                <i class="fa-solid fa-chevron-down arrow" [class.rotate]="openModule === module.nombre"></i>
+                @if (!layoutService.collapsed()) {
+
+                    <i class="fa-solid fa-chevron-down arrow" [class.rotate]="openModule === module.nombre"></i>
+
+                }
 
             </div>
 
@@ -38,7 +53,11 @@
 
                 <i [class]="option.icono + ' ' + option.color"></i>
 
-                <span>{{ option.nombre }}</span>
+                @if (!layoutService.collapsed()) {
+
+                    <span>{{ option.nombre }}</span>
+
+                }
 
             </a>
 

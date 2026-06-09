@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { LayoutService } from '../../core/services/layout.service';
 import { MenuService } from '../../core/services/menu.service';
 
 @Component({
@@ -12,6 +13,9 @@ import { MenuService } from '../../core/services/menu.service';
 })
 export class SidebarComponent {
   openModule = '';
+
+  layoutService = inject(LayoutService);
+
   menuService = inject(MenuService);
 
   toggleModule(module: string) {
