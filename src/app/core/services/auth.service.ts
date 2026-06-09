@@ -56,6 +56,7 @@ export class AuthService {
 
     if (!storedUser) {
       return;
+      localStorage.removeItem('nova-user');
     }
 
     this.currentUserSignal.set(

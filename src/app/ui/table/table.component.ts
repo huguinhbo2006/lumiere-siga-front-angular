@@ -10,8 +10,8 @@ import {
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { TableColumnModel } from '../../models/table-column.model';
-import { TableConfigModel } from '../../models/table-config.model';
+import { TableColumnModel } from '../../core/models/ui/table-column.model';
+import { TableConfigModel } from '../../core/models/ui/table-config.model';
 
 import { PaginationComponent } from '../pagination/pagination.component';
 

@@ -13,7 +13,7 @@ import {
 
 import { CommonModule } from '@angular/common';
 
-import { SelectModel } from '../../models/select.model';
+import { SelectModel } from '../../core/models/ui/select.model';
 
 @Component({
   selector: 'ui-select',

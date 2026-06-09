@@ -5,8 +5,8 @@ import {
 import { CardComponent } from '../../../../ui/card/card.component';
 import { TableComponent } from '../../../../ui/table/table.component';
 
-import { TableColumnModel } from '../../../../models/table-column.model';
-import { TableConfigModel } from '../../../../models/table-config.model';
+import { TableColumnModel } from '../../../../core/models/ui/table-column.model';
+import { TableConfigModel } from '../../../../core/models/ui/table-config.model';
 
 import { TableColumnDirective } from '../../../../ui/table/directives/table-column.directive';
 
