@@ -1,15 +1,16 @@
 <aside
     class="sidebar"
     [class.sidebar--classic]="layoutService.mode() === 'classic'"
+    [class.sidebar--rail]="layoutService.mode() === 'rail'"
     [class.sidebar--collapsed]="layoutService.collapsed()">
 
     <div class="logo">
 
-        <div class="logo-icon">
+        <div class="logo-icon" title="Nova UI">
             N
         </div>
 
-        @if (!layoutService.collapsed()) {
+        @if (showLabels) {
 
             <div class="logo-text">
                 Nova UI
@@ -25,13 +26,16 @@
 
         <div class="menu-module">
 
-            <div class="module-title" (click)="toggleModule(module.nombre)">
+            <div
+                class="module-title"
+                [title]="module.nombre"
+                (click)="toggleModule(module.nombre)">
 
                 <div class="module-info">
 
                     <i [class]="module.icono + ' ' + module.color"></i>
 
-                    @if (!layoutService.collapsed()) {
+                    @if (showLabels) {
 
                         <span>{{ module.nombre }}</span>
 
@@ -39,7 +43,7 @@
 
                 </div>
 
-                @if (!layoutService.collapsed()) {
+                @if (showLabels) {
 
                     <i class="fa-solid fa-chevron-down arrow" [class.rotate]="openModule === module.nombre"></i>
 
@@ -49,11 +53,11 @@
 
             @if (openModule === module.nombre) { @for (option of module.opciones; track option.ruta) {
 
-            <a class="menu-item">
+            <a class="menu-item" [title]="option.nombre">
 
                 <i [class]="option.icono + ' ' + option.color"></i>
 
-                @if (!layoutService.collapsed()) {
+                @if (showLabels) {
 
                     <span>{{ option.nombre }}</span>
 

@@ -18,6 +18,13 @@ export class SidebarComponent {
 
   menuService = inject(MenuService);
 
+  get showLabels(): boolean {
+
+    return this.layoutService.mode() === 'classic'
+      && !this.layoutService.collapsed();
+
+  }
+
   toggleModule(module: string) {
 
     if (this.openModule === module) {
