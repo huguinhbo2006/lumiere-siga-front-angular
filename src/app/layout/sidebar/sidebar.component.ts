@@ -20,7 +20,7 @@ export class SidebarComponent {
 
   get showLabels(): boolean {
 
-    return this.layoutService.mode() === 'classic'
+    return this.layoutService.mode() !== 'rail'
       && !this.layoutService.collapsed();
 
   }

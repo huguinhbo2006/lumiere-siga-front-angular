@@ -2,6 +2,7 @@
     class="sidebar"
     [class.sidebar--classic]="layoutService.mode() === 'classic'"
     [class.sidebar--rail]="layoutService.mode() === 'rail'"
+    [class.sidebar--floating]="layoutService.mode() === 'floating'"
     [class.sidebar--collapsed]="layoutService.collapsed()">
 
     <div class="logo">
