@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { MenuModule } from '../../models/menu.model';
+import { MenuModule } from '../models/menu.model';
 
 
 @Injectable({
